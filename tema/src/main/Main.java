@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import checker.CheckerConstants;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import fileio.Input;
 import fileoutput.PlayGame;
 
@@ -95,7 +94,6 @@ public final class Main {
         PlayGame playGame = new PlayGame(inputData, mapper);
         playGame.play(output);
 
-        //Aici este corect. Sa nu modific
         ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
         objectWriter.writeValue(new File(filePath2), output);
     }

@@ -8,14 +8,16 @@ import java.util.Random;
 
 public class Player {
     private CardInput hero;
+    private boolean heroHasAttacked;
     private ArrayList<CardInput> playerShuffledDeck;
-    private ArrayList<CardInput> cardsInHand;
+    private ArrayList<CardProperties> cardsInHand;
     private int mana;
     private int gamesWon;
     private int gamesPlayed;
     private boolean turnFinished;
 
     public Player() {
+        heroHasAttacked = false;
         cardsInHand = new ArrayList<>();
         mana = 0;
         gamesWon = 0;
@@ -31,12 +33,16 @@ public class Player {
         this.hero = hero;
     }
 
-    public ArrayList<CardInput> getCardsInHand() {
-        return cardsInHand;
+    public boolean isHeroHasAttacked() {
+        return heroHasAttacked;
     }
 
-    public void setCardsInHand(ArrayList<CardInput> cardsInHand) {
-        this.cardsInHand = cardsInHand;
+    public void setHeroHasAttacked(boolean heroHasAttacked) {
+        this.heroHasAttacked = heroHasAttacked;
+    }
+
+    public ArrayList<CardProperties> getCardsInHand() {
+        return cardsInHand;
     }
 
     public int getMana() {
