@@ -170,4 +170,18 @@ public class Output {
         node.put("output", playerNumber);
         return node;
     }
+
+    public ObjectNode gamesPlayedToObjectNode(ObjectMapper objectMapper, int gamesPlayed) {
+        ObjectNode node = objectMapper.createObjectNode();
+        node.put("command", action.getCommand());
+        node.put("output", gamesPlayed);
+        return node;
+    }
+
+    public ObjectNode gamesWon(ObjectMapper objectMapper, int gamesWon) {
+        ObjectNode node = objectMapper.createObjectNode();
+        node.put("command", action.getCommand());
+        node.put("output", gamesWon);
+        return node;
+    }
 }

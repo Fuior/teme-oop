@@ -404,7 +404,7 @@
   "output" : {
     "mana" : 1,
     "attackDamage" : 5,
-    "health" : 5,
+    "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
@@ -440,7 +440,7 @@
   "output" : {
     "mana" : 1,
     "attackDamage" : 5,
-    "health" : 5,
+    "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
@@ -462,7 +462,7 @@
   "output" : {
     "mana" : 1,
     "attackDamage" : 3,
-    "health" : 5,
+    "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
@@ -483,7 +483,7 @@
   "output" : {
     "mana" : 1,
     "attackDamage" : 3,
-    "health" : 5,
+    "health" : 4,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
@@ -516,7 +516,7 @@
   "output" : {
     "mana" : 1,
     "attackDamage" : 3,
-    "health" : 7,
+    "health" : 6,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
@@ -531,7 +531,7 @@
   "output" : {
     "mana" : 2,
     "attackDamage" : 3,
-    "health" : 0,
+    "health" : 8,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Red", "Black" ],
     "name" : "Miraj"
@@ -583,7 +583,7 @@
   "output" : {
     "mana" : 1,
     "attackDamage" : 3,
-    "health" : 9,
+    "health" : 8,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
@@ -612,7 +612,7 @@
   "output" : {
     "mana" : 2,
     "attackDamage" : 3,
-    "health" : 3,
+    "health" : 11,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Red", "Black" ],
     "name" : "Miraj"
@@ -636,7 +636,7 @@
   "output" : {
     "mana" : 2,
     "attackDamage" : 3,
-    "health" : 3,
+    "health" : 11,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Red", "Black" ],
     "name" : "Miraj"
@@ -699,26 +699,7 @@
   "command" : "getFrozenCardsOnTable",
   "output" : [ ]
 }, {
-  "command" : "useAttackHero",
-  "cardAttacker" : {
-    "x" : 2,
-    "y" : 2
-  },
-  "error" : "Attacked card is not of type 'Tank'."
-}, {
-  "command" : "useAttackHero",
-  "cardAttacker" : {
-    "x" : 2,
-    "y" : 1
-  },
-  "error" : "Attacked card is not of type 'Tank'."
-}, {
-  "command" : "useAttackHero",
-  "cardAttacker" : {
-    "x" : 3,
-    "y" : 0
-  },
-  "error" : "Attacked card is not of type 'Tank'."
+  "gameEnded" : "Player one killed the enemy hero."
 }, {
   "command" : "getPlayerMana",
   "playerIdx" : 1,
@@ -739,56 +720,49 @@
   }, {
     "mana" : 1,
     "attackDamage" : 7,
-    "health" : 5,
+    "health" : 1,
     "description" : "Premium card: Fear him. Your last breath is now.",
     "colors" : [ "Purple", "Yellow" ],
     "name" : "Berserker"
   }, {
     "mana" : 1,
     "attackDamage" : 1,
-    "health" : 7,
+    "health" : 4,
     "description" : "Premium card: The will of Gods has been spoken, obey and you shall be saved...or not.",
     "colors" : [ "Green", "Yellow", "Blue" ],
     "name" : "Disciple"
   }, {
     "mana" : 1,
     "attackDamage" : 1,
-    "health" : 3,
+    "health" : 1,
     "description" : "Premium card: Nobody suspects an outcast, not even the Gods.",
     "colors" : [ "Black", "White", "Red" ],
     "name" : "The Cursed One"
   }, {
     "mana" : 1,
     "attackDamage" : 6,
-    "health" : 6,
+    "health" : 2,
     "description" : "Premium card: Fear him. Your last breath is now.",
     "colors" : [ "Red", "Blue", "Pink" ],
     "name" : "Berserker"
   } ], [ {
     "mana" : 1,
     "attackDamage" : 4,
-    "health" : 11,
+    "health" : 10,
     "description" : "Premium card: Ravished by the winds of hell, no soul is to be forgiven.",
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   }, {
-    "mana" : 1,
-    "attackDamage" : 5,
-    "health" : -1,
-    "description" : "Standard card: A warrior who is never afraid of battle, no matter the costs",
-    "colors" : [ "Red", "Purple" ],
-    "name" : "Goliath"
-  }, {
     "mana" : 2,
-    "attackDamage" : 3,
-    "health" : 10,
+    "attackDamage" : 5,
+    "health" : 4,
     "description" : "Standard card: Death incarnate. No better time to die than now.",
     "colors" : [ "Orange", "Red", "Black" ],
     "name" : "The Ripper"
   } ], [ {
     "mana" : 2,
     "attackDamage" : 3,
-    "health" : 3,
+    "health" : 8,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Red", "Black" ],
     "name" : "Miraj"
@@ -802,7 +776,7 @@
   }, {
     "mana" : 1,
     "attackDamage" : 5,
-    "health" : 13,
+    "health" : 9,
     "description" : "Standard card: When he is near, close your eyes. They betray your mind.",
     "colors" : [ "Yellow", "Orange", "Red" ],
     "name" : "Miraj"
@@ -864,4 +838,13 @@
   "command" : "getCardsInHand",
   "playerIdx" : 2,
   "output" : [ ]
+}, {
+  "command" : "getPlayerOneWins",
+  "output" : 2
+}, {
+  "command" : "getPlayerTwoWins",
+  "output" : 0
+}, {
+  "command" : "getTotalGamesPlayed",
+  "output" : 2
 } ]

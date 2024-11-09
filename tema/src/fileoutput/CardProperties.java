@@ -16,10 +16,8 @@ public class CardProperties {
         hasAttacked = false;
         if (cardInput.getName().equals("Goliath") || cardInput.getName().equals("Warden")) {
             type = "Tank";
-        } else if (cardInput.getName().equals("Sentinel") || cardInput.getName().equals("Berserker")) {
-            type = "Normal minion";
         } else {
-            type = "Card with special abilities";
+            type = "Card is not Tank";
         }
     }
 

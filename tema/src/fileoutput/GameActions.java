@@ -86,4 +86,14 @@ public class GameActions {
         Output frozenCardsOutput = new Output(action, frozenCards);
         output.add(frozenCardsOutput.cardsToObjectNode(objectMapper));
     }
+
+    public void getTotalGamesPlayed(ArrayNode output, ActionsInput action, int gamesPlayed) {
+        Output gamesPlayedOutput = new Output(action);
+        output.add(gamesPlayedOutput.gamesPlayedToObjectNode(objectMapper, gamesPlayed));
+    }
+
+    public void getGamesWon(ArrayNode output, ActionsInput action, int gamesWon) {
+        Output gamesWonOutput = new Output(action);
+        output.add(gamesWonOutput.gamesWon(objectMapper, gamesWon));
+    }
 }

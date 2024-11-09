@@ -7,6 +7,8 @@ import fileio.CardInput;
 import fileio.GameInput;
 import fileio.Input;
 
+import java.util.ArrayList;
+
 public class PlayGame {
     private Input input;
     private GameBoard gameBoard;
@@ -16,6 +18,8 @@ public class PlayGame {
 
     public PlayGame(Input input, ObjectMapper objectMapper) {
         this.input = input;
+        playerOne = new Player();
+        playerTwo = new Player();
         gameActions = new GameActions(objectMapper);
     }
 
@@ -126,7 +130,7 @@ public class PlayGame {
             case "useAttackHero" -> {
                 String message = gameBoard.attackHero(action, gameState.getActivePlayer(),
                         (gameState.getActivePlayer() == 1) ? playerTwo : playerOne,
-                        (gameState.getActivePlayer() == 1) ? playerOne : playerTwo);
+                        (gameState.getActivePlayer() == 1) ? playerOne : playerTwo, gameState);
                 if (message != null) {
                     gameActions.attackHero(output, action, message);
                 }
@@ -139,14 +143,25 @@ public class PlayGame {
                 }
             }
             case "getFrozenCardsOnTable" -> gameActions.getFrozenCards(output, action, gameBoard.getFrozenCards());
+            case "getTotalGamesPlayed" -> gameActions.getTotalGamesPlayed(output, action, playerOne.getGamesPlayed());
+            case "getPlayerOneWins" -> gameActions.getGamesWon(output, action, playerOne.getGamesWon());
+            case "getPlayerTwoWins" -> gameActions.getGamesWon(output, action, playerTwo.getGamesWon());
         }
     }
 
-    public void doActions(GameInput game, int index, ArrayNode output) {
+    public void doActions(GameInput game, ArrayNode output) {
         startRound(1);
-        GameState gameState = new GameState(input.getGames().get(index).getStartGame().getStartingPlayer());
+        GameState gameState = new GameState(game.getStartGame().getStartingPlayer());
 
         for (int i = 0; i < game.getActions().size(); i++) {
+            if (gameState.isGameEnd() &&
+                    (game.getActions().get(i).getCommand().equals("useHeroAbility") ||
+                    game.getActions().get(i).getCommand().equals("useAttackHero") ||
+                    game.getActions().get(i).getCommand().equals("cardUsesAbility") ||
+                    game.getActions().get(i).getCommand().equals("cardUsesAttack") ||
+                    game.getActions().get(i).getCommand().equals("endPlayerTurn"))) {
+                continue;
+            }
             doAction(game, game.getActions().get(i), output, gameState);
         }
     }
@@ -154,15 +169,17 @@ public class PlayGame {
     public void play(ArrayNode output) {
         for (int i = 0; i < input.getGames().size(); i++) {
             gameBoard = new GameBoard();
-            playerOne = new Player();
-            playerTwo = new Player();
+            playerOne.setMana(0);
+            playerOne.setCardsInHand(new ArrayList<>());
+            playerTwo.setMana(0);
+            playerTwo.setCardsInHand(new ArrayList<>());
 
             gameBoard.initializeGameBoard();
             setPlayersHero(input.getGames().get(i).getStartGame().getPlayerOneHero(),
                     input.getGames().get(i).getStartGame().getPlayerTwoHero());
             initializePlayersDecks(input.getGames().get(i));
 
-            doActions(input.getGames().get(i), i, output);
+            doActions(input.getGames().get(i), output);
         }
     }
 }

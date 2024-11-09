@@ -60,13 +60,6 @@ public class GameBoard {
         return null;
     }
 
-    public boolean cardExists(ActionsInput actionInput) {
-        return actionInput.getCardAttacker().getY() < cardsOnTheBoard.get(actionInput.getCardAttacker()
-                .getX()).size() &&
-                actionInput.getCardAttacked().getY() < cardsOnTheBoard.get(actionInput.getCardAttacked()
-                        .getX()).size();
-    }
-
     public boolean isTank(int activePlayer) {
         for (CardProperties card : cardsOnTheBoard.get((activePlayer == 1) ? 1 : 2)) {
             if (card.getType().equals("Tank")) {
@@ -76,13 +69,11 @@ public class GameBoard {
         return false;
     }
 
-    public boolean isEnemyCard(ActionsInput actionInput, int activePlayer) {
+    public boolean isEnemyCard(ActionsInput action, int activePlayer) {
         if (activePlayer == 1) {
-            return actionInput.getCardAttacked().getX() != 2 &&
-                    actionInput.getCardAttacked().getX() != 3;
+            return action.getCardAttacked().getX() != 2 && action.getCardAttacked().getX() != 3;
         } else {
-            return actionInput.getCardAttacked().getX() != 0 &&
-                    actionInput.getCardAttacked().getX() != 1;
+            return action.getCardAttacked().getX() != 0 && action.getCardAttacked().getX() != 1;
         }
     }
 
@@ -94,25 +85,25 @@ public class GameBoard {
         }
     }
 
-    public String attackCard(ActionsInput actionInput, int activePlayer) {
-        if (!cardExists(actionInput)) {
-            return null;
-        }
-
-        if (!isEnemyCard(actionInput, activePlayer)) {
+    public String attackCard(ActionsInput action, int activePlayer) {
+        if (!isEnemyCard(action, activePlayer)) {
             return "Attacked card does not belong to the enemy.";
         }
 
-        CardProperties attackerCard = cardsOnTheBoard.get(actionInput.getCardAttacker().getX()).
-                get(actionInput.getCardAttacker().getY());
+        CardProperties attackerCard = cardsOnTheBoard.get(action.getCardAttacker().getX()).
+                get(action.getCardAttacker().getY());
         if (attackerCard.isHasAttacked()) {
             return "Attacker card has already attacked this turn.";
         } else if (attackerCard.isFrozen()) {
             return "Attacker card is frozen.";
         }
 
-        CardProperties attackedCard = cardsOnTheBoard.get(actionInput.getCardAttacked().getX()).
-                get(actionInput.getCardAttacked().getY());
+        if (action.getCardAttacked().getY() >= cardsOnTheBoard.get(action.getCardAttacked().getX()).size()) {
+            return null;
+        }
+
+        CardProperties attackedCard = cardsOnTheBoard.get(action.getCardAttacked().getX()).
+                get(action.getCardAttacked().getY());
         if (isTank(activePlayer) && !attackedCard.getType().equals("Tank")) {
             return "Attacked card is not of type 'Tank'.";
         }
@@ -120,20 +111,16 @@ public class GameBoard {
         attackedCard.getCardInput().setHealth(attackedCard.getCardInput().getHealth() -
                 attackerCard.getCardInput().getAttackDamage());
         if (attackedCard.getCardInput().getHealth() <= 0) {
-            cardsOnTheBoard.get(actionInput.getCardAttacked().getX()).remove(actionInput.getCardAttacked().getY());
+            cardsOnTheBoard.get(action.getCardAttacked().getX()).remove(action.getCardAttacked().getY());
         }
 
         attackerCard.setHasAttacked(true);
         return null;
     }
 
-    public String useCardAbility(ActionsInput actionInput, int activePlayer) {
-        if (!cardExists(actionInput)) {
-            return null;
-        }
-
-        CardProperties cardAttacker = cardsOnTheBoard.get(actionInput.getCardAttacker().getX()).
-                get(actionInput.getCardAttacker().getY());
+    public String useCardAbility(ActionsInput action, int activePlayer) {
+        CardProperties cardAttacker = cardsOnTheBoard.get(action.getCardAttacker().getX()).
+                get(action.getCardAttacker().getY());
 
         if (cardAttacker.isFrozen()) {
             return "Attacker card is frozen.";
@@ -141,16 +128,15 @@ public class GameBoard {
             return "Attacker card has already attacked this turn.";
         }
 
-        CardProperties cardAttacked = cardsOnTheBoard.get(actionInput.getCardAttacked().getX()).
-                get(actionInput.getCardAttacked().getY());
-
+        CardProperties cardAttacked = cardsOnTheBoard.get(action.getCardAttacked().getX()).
+                get(action.getCardAttacked().getY());
         if (cardAttacker.getCardInput().getName().equals("Disciple")) {
-            if (isEnemyCard(actionInput, activePlayer)) {
+            if (isEnemyCard(action, activePlayer)) {
                 return "Attacked card does not belong to the current player.";
             }
             cardAttacked.getCardInput().setHealth(cardAttacked.getCardInput().getHealth() + 2);
         } else {
-            if (!isEnemyCard(actionInput, activePlayer)) {
+            if (!isEnemyCard(action, activePlayer)) {
                 return "Attacked card does not belong to the enemy.";
             } else if (isTank(activePlayer) && !cardAttacked.getType().equals("Tank")) {
                 return "Attacked card is not of type 'Tank'.";
@@ -164,8 +150,7 @@ public class GameBoard {
             } else {
                 int attack = cardAttacked.getCardInput().getAttackDamage();
                 if (attack == 0) {
-                    cardsOnTheBoard.get(actionInput.getCardAttacked().getX()).
-                            remove(actionInput.getCardAttacked().getY());
+                    cardsOnTheBoard.get(action.getCardAttacked().getX()).remove(action.getCardAttacked().getY());
                 } else {
                     cardAttacked.getCardInput().setAttackDamage(cardAttacked.getCardInput().getHealth());
                     cardAttacked.getCardInput().setHealth(attack);
@@ -177,14 +162,11 @@ public class GameBoard {
         return null;
     }
 
-    public String attackHero(ActionsInput actionInput, int activePlayer, Player attackedPlayer, Player attacker) {
-        if (actionInput.getCardAttacker().getY() >= cardsOnTheBoard.get(actionInput.getCardAttacker().getX()).size()
-                || attackedPlayer.getHero() == attacker.getHero()) {
-            return null;
-        }
+    public String attackHero(ActionsInput action, int activePlayer, Player attackedPlayer, Player attacker,
+                             GameState gameState) {
 
-        CardProperties cardAttacker = cardsOnTheBoard.get(actionInput.getCardAttacker().getX()).
-                get(actionInput.getCardAttacker().getY());
+        CardProperties cardAttacker = cardsOnTheBoard.get(action.getCardAttacker().getX()).
+                get(action.getCardAttacker().getY());
         if (cardAttacker.isFrozen()) {
             return "Attacker card is frozen.";
         } else if (cardAttacker.isHasAttacked()) {
@@ -198,7 +180,8 @@ public class GameBoard {
         if (attackedPlayer.getHero().getHealth() <= 0) {
             attacker.setGamesWon(attacker.getGamesWon() + 1);
             attacker.setGamesPlayed(attacker.getGamesPlayed() + 1);
-            attackedPlayer.setGamesPlayed(attackedPlayer.getGamesPlayed() + 1);
+            attackedPlayer.setGamesPlayed(attacker.getGamesPlayed());
+            gameState.setGameEnd(true);
 
             if (activePlayer == 1) {
                 return "Player one killed the enemy hero.";
@@ -210,44 +193,42 @@ public class GameBoard {
         return null;
     }
 
-    public String useHeroAbility(ActionsInput actionInput, int activePlayer, Player attacker) {
+    public String useHeroAbility(ActionsInput action, int activePlayer, Player attacker) {
         if (attacker.getMana() < attacker.getHero().getMana()) {
             return "Not enough mana to use hero's ability.";
         } else if (attacker.isHeroHasAttacked()) {
             return "Hero has already attacked this turn.";
         } else if (attacker.getHero().getName().equals("Lord Royce") ||
                 attacker.getHero().getName().equals("Empress Thorina")) {
-            if(!isEnemyRow(actionInput.getAffectedRow(), activePlayer)) {
+            if(!isEnemyRow(action.getAffectedRow(), activePlayer)) {
                 return "Selected row does not belong to the enemy.";
-            } else if (cardsOnTheBoard.get(actionInput.getAffectedRow()).isEmpty()) {
-                return null;
             } else if (attacker.getHero().getName().equals("Lord Royce")) {
-                for (CardProperties card : cardsOnTheBoard.get(actionInput.getAffectedRow())) {
+                for (CardProperties card : cardsOnTheBoard.get(action.getAffectedRow())) {
                     card.setFrozen(true);
                     card.setFreezeCounter(card.getFreezeCounter() + 1);
                 }
             } else {
                 int maxHealth = 0, column = 0, iter = 0;
-                for (CardProperties card : cardsOnTheBoard.get(actionInput.getAffectedRow())) {
+                for (CardProperties card : cardsOnTheBoard.get(action.getAffectedRow())) {
                     if (card.getCardInput().getHealth() > maxHealth) {
                         maxHealth = card.getCardInput().getHealth();
                         column = iter;
                     }
                     iter++;
                 }
-                cardsOnTheBoard.get(actionInput.getAffectedRow()).remove(column);
+                if(!cardsOnTheBoard.get(action.getAffectedRow()).isEmpty()) {
+                    cardsOnTheBoard.get(action.getAffectedRow()).remove(column);
+                }
             }
         } else {
-            if (isEnemyRow(actionInput.getAffectedRow(), activePlayer)) {
+            if (isEnemyRow(action.getAffectedRow(), activePlayer)) {
                 return "Selected row does not belong to the current player.";
-            }else if (cardsOnTheBoard.get(actionInput.getAffectedRow()).isEmpty()) {
-                return null;
             } else if (attacker.getHero().getName().equals("King Mudface")) {
-                for (CardProperties card : cardsOnTheBoard.get(actionInput.getAffectedRow())) {
+                for (CardProperties card : cardsOnTheBoard.get(action.getAffectedRow())) {
                     card.getCardInput().setHealth(card.getCardInput().getHealth() + 1);
                 }
             } else {
-                for (CardProperties card : cardsOnTheBoard.get(actionInput.getAffectedRow())) {
+                for (CardProperties card : cardsOnTheBoard.get(action.getAffectedRow())) {
                     card.getCardInput().setAttackDamage(card.getCardInput().getAttackDamage() + 1);
                 }
             }

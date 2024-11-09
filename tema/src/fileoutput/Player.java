@@ -18,8 +18,6 @@ public class Player {
 
     public Player() {
         heroHasAttacked = false;
-        cardsInHand = new ArrayList<>();
-        mana = 0;
         gamesWon = 0;
         gamesPlayed = 0;
         turnFinished = false;
@@ -39,6 +37,10 @@ public class Player {
 
     public void setHeroHasAttacked(boolean heroHasAttacked) {
         this.heroHasAttacked = heroHasAttacked;
+    }
+
+    public void setCardsInHand(ArrayList<CardProperties> cardsInHand) {
+        this.cardsInHand = cardsInHand;
     }
 
     public ArrayList<CardProperties> getCardsInHand() {
@@ -78,7 +80,17 @@ public class Player {
     }
 
     public void suffleDeck(ArrayList<CardInput> playerDeck, int seed) {
-        playerShuffledDeck = new ArrayList<>(playerDeck);
+        playerShuffledDeck = new ArrayList<>();
+        for (CardInput card : playerDeck) {
+            CardInput copiedCard = new CardInput();
+            copiedCard.setMana(card.getMana());
+            copiedCard.setAttackDamage(card.getAttackDamage());
+            copiedCard.setHealth(card.getHealth());
+            copiedCard.setDescription(card.getDescription());
+            copiedCard.setColors(new ArrayList<>(card.getColors()));
+            copiedCard.setName(card.getName());
+            playerShuffledDeck.add(copiedCard);
+        }
         Random random = new Random(seed);
         Collections.shuffle(playerShuffledDeck, random);
     }
