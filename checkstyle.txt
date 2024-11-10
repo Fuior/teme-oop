@@ -1,1 +1,17 @@
-Error: Unable to access jarfile src/checker/checkstyle-8.36.2-all.jar
+Starting audit...
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:17:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:23:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:29:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:35:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:41:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:51:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:57:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:71:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:77:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:83:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:89:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:95:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:101:5: Missing a Javadoc comment. [MissingJavadocMethod]
+[ERROR] /home/andreea/Desktop/teme-oop/./src/main/java/org/poo/fileoutput/GameActions.java:107:5: Missing a Javadoc comment. [MissingJavadocMethod]
+Audit done.
+Checkstyle ends with 14 errors.
