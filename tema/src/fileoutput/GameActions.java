@@ -8,7 +8,7 @@ import fileio.CardInput;
 import java.util.ArrayList;
 
 public class GameActions {
-    private ObjectMapper objectMapper;
+    private final ObjectMapper objectMapper;
 
     public GameActions(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;

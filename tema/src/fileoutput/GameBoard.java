@@ -6,7 +6,7 @@ import fileio.CardInput;
 import java.util.ArrayList;
 
 public class GameBoard {
-    private ArrayList<ArrayList<CardProperties>> cardsOnTheBoard;
+    private final ArrayList<ArrayList<CardProperties>> cardsOnTheBoard;
 
     public GameBoard() {
         cardsOnTheBoard = new ArrayList<>();

@@ -10,11 +10,11 @@ import fileio.Input;
 import java.util.ArrayList;
 
 public class PlayGame {
-    private Input input;
+    private final Input input;
     private GameBoard gameBoard;
-    private Player playerOne;
-    private Player playerTwo;
-    private GameActions gameActions;
+    private final Player playerOne;
+    private final Player playerTwo;
+    private final GameActions gameActions;
 
     public PlayGame(Input input, ObjectMapper objectMapper) {
         this.input = input;

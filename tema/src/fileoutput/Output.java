@@ -10,7 +10,7 @@ import fileio.Coordinates;
 import java.util.ArrayList;
 
 public class Output {
-    private ActionsInput action;
+    private final ActionsInput action;
     private ArrayList<CardInput> cards;
     private String message;
 

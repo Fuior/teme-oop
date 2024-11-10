@@ -3,8 +3,8 @@ package fileoutput;
 import fileio.CardInput;
 
 public class CardProperties {
-    private CardInput cardInput;
-    private String type;
+    private final CardInput cardInput;
+    private final String type;
     private boolean isFrozen;
     private int freezeCounter;
     private boolean hasAttacked;
